@@ -18,6 +18,7 @@ from text_analysis_tools.api.spell_correct.spell_correct import SpellCorrect
 from text_analysis_tools.api.summarization.tfidf_summarization import TfidfSummarization
 from text_analysis_tools.api.summarization.textrank_summarization import TextRankSummarization
 from text_analysis_tools.api.topic_keywords.topic_kwywords import TopicKeywords
+from text_analysis_tools.api.text_classification.fasttext import FastText
 
 
 """
@@ -225,21 +226,51 @@ def topic_keywords(n_components=5, n_top_words=10, max_iter=10):
     print("topic keywords: {}\n".format(keywords))
 
 
+"""
+文本分类
+"""
+def fasttext_classification():
+    """
+     fasttext 文本分类
+    :param train_data_path: 训练文本路径
+    :param save_model_path: 模型保存路径
+    :param test_data_path: 测试文本路径
+    :param type: 运行模式，“train/prediict”
+    :param k: 返回预测标签数目，默认为1
+    :param threshold: 当标签概率大于threshold，进行输出, 默认0.0
+    """
+    # Train model
+    train_data_path = "./test_data//test_fasttext_cls.txt"
+    test_data_Path = train_data_path
+    save_model_path = "fasttext.model.bin"
+    fasttext = FastText(train_data_path=train_data_path, test_data_path=test_data_Path,
+                        save_model_path=save_model_path, type="train")
+    fasttext.train()
+
+    # Predict
+    save_model_path = "fasttext.model.bin"
+    fasttext = FastText(save_model_path=save_model_path, type="predict", k=2, threshold=0.0)
+    ret = fasttext.predict(["黄蜂 vs 湖人 首发 ： 科比 冲击 七 连胜   火箭 两旧 将 登场 新浪 体育讯 北京 时间 3 月 28 日 ， NBA 常规赛 洛杉矶 湖人",
+                            "历届 华表奖 新人 浮沉 录 ： 曾经 新 丁 今何在 ？ 新浪 娱乐 讯   近日 ， 第十四届 华表奖 十八个 奖项 提名 名单 公布 "],
+                           )
+    print(ret)
+
 
 if __name__ == "__main__":
-    kmeans_cluster()
-    dbscan_cluster()
-    cosion_sismilarity()
-    edit_similarity()
-    simhash_similarity()
-    tfidf_keywords()
-    textrank_keywords()
-    keyphrase_extract()
-    sentiment_analysis()
-    spell_correct()
-    tfidf_summarization()
-    textrank_summarization()
-    topic_keywords()
+    # kmeans_cluster()
+    # dbscan_cluster()
+    # cosion_sismilarity()
+    # edit_similarity()
+    # simhash_similarity()
+    # tfidf_keywords()
+    # textrank_keywords()
+    # keyphrase_extract()
+    # sentiment_analysis()
+    # spell_correct()
+    # tfidf_summarization()
+    # textrank_summarization()
+    # topic_keywords()
+    fasttext_classification()
     pass
 
 
