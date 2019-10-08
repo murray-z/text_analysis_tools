@@ -19,6 +19,8 @@ from text_analysis_tools.api.summarization.tfidf_summarization import TfidfSumma
 from text_analysis_tools.api.summarization.textrank_summarization import TextRankSummarization
 from text_analysis_tools.api.topic_keywords.topic_kwywords import TopicKeywords
 from text_analysis_tools.api.text_classification.fasttext import FastText
+from text_analysis_tools.api.synonym.word2vec import Word2VecSynonym
+from text_analysis_tools.api.synonym.synonym_dict import SynonymDict
 
 
 """
@@ -256,6 +258,38 @@ def fasttext_classification():
     print(ret)
 
 
+"""
+同义词，近义词
+word2vec_synonym: 采用预训练词向量，生成同义词、近义词
+synonym_dict: 根据词典返回同义词(收集词数较少...)
+"""
+
+def word2vec_synonym():
+    """
+    word_embedding_path: 预训练词向量路径，由于词向量太大，需用户自己下载
+                        下载参考：https://github.com/Embedding/Chinese-Word-Vectors
+    topn: 返回同义词个数
+    :return: 同义词列表 [(word, score)],若查询词在词向量词表中不存在，返回[].
+    """
+    # 加载词向量
+    word2vec = Word2VecSynonym(word_embedding_path="./test_data/sgns.target.word-word.dynwin5.thr10.neg5.dim300.iter5",
+                               topn=5)
+    # 生成同义词
+    ret = word2vec.synonym("苹果")
+    print(ret)
+    ret = word2vec.synonym("上海")
+    print(ret)
+
+
+def synonym_dict():
+    """
+    若词典中不存在查询词，返回[]
+    :return:
+    """
+    synonym = SynonymDict()
+    ret = synonym.synonym("狗仗人势")
+    print(ret)
+
 if __name__ == "__main__":
     # kmeans_cluster()
     # dbscan_cluster()
@@ -270,7 +304,9 @@ if __name__ == "__main__":
     # tfidf_summarization()
     # textrank_summarization()
     # topic_keywords()
-    fasttext_classification()
+    # fasttext_classification()
+    # word2vec_synonym()
+    synonym_dict()
     pass
 
 
