@@ -290,6 +290,9 @@ def synonym_dict():
     ret = synonym.synonym("狗仗人势")
     print(ret)
 
+    ret = synonym.synonym("人才济济")
+    print(ret)
+
 if __name__ == "__main__":
     # kmeans_cluster()
     # dbscan_cluster()
