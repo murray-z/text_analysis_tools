@@ -234,12 +234,18 @@ def topic_keywords(n_components=5, n_top_words=10, max_iter=10):
 def fasttext_classification():
     """
      fasttext 文本分类
-    :param train_data_path: 训练文本路径
-    :param save_model_path: 模型保存路径
-    :param test_data_path: 测试文本路径
-    :param type: 运行模式，“train/prediict”
-    :param k: 返回预测标签数目，默认为1
-    :param threshold: 当标签概率大于threshold，进行输出, 默认0.0
+    fasttext
+        :param save_model_path: 模型保存路径
+        :param train_data_path: 训练样本路径
+        :param test_data_path: 测试样本路径
+        :param type: 模式：“train/predict”
+        :param k: 返回结果个数
+        :param threshold: 阈值
+        :param epoch: 训练轮数
+        :param pretrainedVectors: 预训练词向量路径
+        :param label: 标签前缀
+        :param lr: 学习率
+        :param dim: 词向量维度
     """
     # Train model
     train_data_path = "./test_data//test_fasttext_cls.txt"
