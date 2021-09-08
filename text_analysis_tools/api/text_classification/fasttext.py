@@ -5,7 +5,7 @@ import sys
 import fasttext.FastText as ff
 
 
-class FastText:
+class Fasttext:
     def __init__(self, save_model_path=None, train_data_path=None, test_data_path=None, type="train",
                  k=1, threshold=0.0, epoch=5, pretrainedVectors="", label="__label__",
                  lr=0.1, dim=100):

@@ -5,22 +5,23 @@
 """
 
 
-from text_analysis_tools.api.text_cluster.kmeans import KmeansClustering
-from text_analysis_tools.api.text_cluster.dbscan import DbscanClustering
-from text_analysis_tools.api.text_similarity.cosion import CosionSimilarity
-from text_analysis_tools.api.text_similarity.edit import EditSimilarity
-from text_analysis_tools.api.text_similarity.simhash import SimHashSimilarity
-from text_analysis_tools.api.keywords.tfidf import TfidfKeywords
-from text_analysis_tools.api.keywords.textrank import TextRankKeywords
-from text_analysis_tools.api.keyphrase.keyphrase import KeyPhraseExtraction
-from text_analysis_tools.api.sentiment.sentiment import SentimentAnalysis
-from text_analysis_tools.api.spell_correct.spell_correct import SpellCorrect
-from text_analysis_tools.api.summarization.tfidf_summarization import TfidfSummarization
-from text_analysis_tools.api.summarization.textrank_summarization import TextRankSummarization
-from text_analysis_tools.api.topic_keywords.topic_kwywords import TopicKeywords
-from text_analysis_tools.api.text_classification.fasttext import FastText
-from text_analysis_tools.api.synonym.word2vec import Word2VecSynonym
-from text_analysis_tools.api.synonym.synonym_dict import SynonymDict
+from text_analysis_tools import KmeansClustering
+from text_analysis_tools import DbscanClustering
+from text_analysis_tools import CosionSimilarity
+from text_analysis_tools import EditSimilarity
+from text_analysis_tools import SimHashSimilarity
+from text_analysis_tools import TfidfKeywords
+from text_analysis_tools import TextRankKeywords
+from text_analysis_tools import KeyPhraseExtraction
+from text_analysis_tools import SentimentAnalysis
+from text_analysis_tools import SpellCorrect
+from text_analysis_tools import TfidfSummarization
+from text_analysis_tools import TextRankSummarization
+from text_analysis_tools import TopicKeywords
+from text_analysis_tools import Fasttext
+from text_analysis_tools import Word2VecSynonym
+from text_analysis_tools import SynonymDict
+from text_analysis_tools import TripleExtraction
 
 
 """
@@ -248,16 +249,16 @@ def fasttext_classification():
         :param dim: 词向量维度
     """
     # Train model
-    train_data_path = "./test_data//test_fasttext_cls.txt"
+    train_data_path = "./test_data/test_fasttext_cls.txt"
     test_data_Path = train_data_path
     save_model_path = "fasttext.model.bin"
-    fasttext = FastText(train_data_path=train_data_path, test_data_path=test_data_Path,
+    fasttext = Fasttext(train_data_path=train_data_path, test_data_path=test_data_Path,
                         save_model_path=save_model_path, type="train")
     fasttext.train()
 
     # Predict
     save_model_path = "fasttext.model.bin"
-    fasttext = FastText(save_model_path=save_model_path, type="predict", k=2, threshold=0.0)
+    fasttext = Fasttext(save_model_path=save_model_path, type="predict", k=2, threshold=0.0)
     ret = fasttext.predict(["黄蜂 vs 湖人 首发 ： 科比 冲击 七 连胜   火箭 两旧 将 登场 新浪 体育讯 北京 时间 3 月 28 日 ， NBA 常规赛 洛杉矶 湖人",
                             "历届 华表奖 新人 浮沉 录 ： 曾经 新 丁 今何在 ？ 新浪 娱乐 讯   近日 ， 第十四届 华表奖 十八个 奖项 提名 名单 公布 "],
                            )
@@ -299,6 +300,16 @@ def synonym_dict():
     ret = synonym.synonym("人才济济")
     print(ret)
 
+
+"""
+文本三元组抽取
+"""
+def triple_extraction():
+    text = "履行反洗钱义务的机构及其工作人员依法提交大额交易和可疑交易报告，受法律保护。"
+    extractor = TripleExtraction()
+    res = extractor.triples_main(text)
+    print(res)
+
 if __name__ == "__main__":
     # kmeans_cluster()
     # dbscan_cluster()
@@ -315,8 +326,8 @@ if __name__ == "__main__":
     # topic_keywords()
     # fasttext_classification()
     # word2vec_synonym()
-    synonym_dict()
-    pass
+    # synonym_dict()
+    triple_extraction()
 
 
 
