@@ -6,6 +6,6 @@ xpinyin==0.7.6
 ltp==4.1.5.post2
 nltk
 gensim==4.1.0
-Pillow==8.3.2
+Pillow==9.0.0
 scikit_learn==0.24.2
 fasttext==0.9.1
