@@ -74,8 +74,8 @@ def cosion_sismilarity():
     text1 = "小明，你妈妈喊你回家吃饭啦"
     text2 = "回家吃饭啦，小明"
     cosion = CosionSimilarity()
-    similiar = cosion.similarity(text1, text2)
-    print("cosion similarity result: {}\n".format(similiar))
+    similar = cosion.similarity(text1, text2)
+    print("cosion similarity result: {}\n".format(similar))
 
 
 def edit_similarity():
